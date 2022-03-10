@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+
+  hello-world-rest-api-:
+    image: balajisn/sbms-hello-world-rest-api:0.0.2-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8080:8080"
+    networks:
+      - common-network
+    depends_on:
+      - naming-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+      
+  naming-server:
+    image: balajisn/sbms-naming-server:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8761:8761"
+    networks:
+      - common-network
+
+networks:
+  common-network:
